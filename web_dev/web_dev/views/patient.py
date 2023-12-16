@@ -2,6 +2,7 @@ from rest_framework import status
 from django.contrib.auth.hashers import check_password, make_password
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from ..models.health_worker import HealthWorker
 from ..models.patient import Patient
 from ..serializers.patient import PatientSerializer
 from ..utils.jwt_utils import generate_token, get_user_from_request

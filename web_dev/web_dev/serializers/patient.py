@@ -3,7 +3,7 @@ from ..models.patient import Patient
 from django.contrib.auth.hashers import make_password
 
 class PatientSerializer(serializers.ModelSerializer):
-        """Serializer for Learner model"""
+        """Serializer for Patient model"""
         class Meta:
             model = Patient
             fields = '__all__'

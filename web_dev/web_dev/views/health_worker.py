@@ -35,3 +35,30 @@ def health_worker_login(request):
             "message": "account deactivated",
             }, status=status.HTTP_401_UNAUTHORIZED)
     return Response({"Message": "Wrong Credentials"}, status=status.HTTP_401_UNATHORIZED)
+
+@api_view(['GET', 'POST'])
+def create_health_worker(request):
+    """Get the list of health workers or create a new health workers"""
+    if request.method == 'POST':
+        serializer = HealthWorkerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response_data = {
+                "message": "HealthWorker created successfully",
+                "data": serializer.data
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        response = {
+            'message':'Something went wrong',
+            'error': serializer.errors
+        }
+        return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'GET':
+        user = get_user_from_request(request)
+        # If token not passed or not valid
+        if not user:
+            response_data = {
+                "message": "Not authenticated",
+            }
+            return Response(response_data, status=status.HTTP_401_UNAUTHORIZED)
