@@ -19,13 +19,13 @@ from django.urls import path, include
 from .views.health_worker import health_worker_login, create_health_worker
 from .views.patient import create_patient
 from .views.patient import patient_login
-from .views.medic_info import create_medic_info
+from .views.medic_info import MedicalInformationViewSet
 
 urlpatterns = [
-    path('health_workers', create_health_worker),
+    path('health_workers/sign_up', create_health_worker),
     path('health_workers/login', health_worker_login),
-    path('patients', create_patient),
+    path('patients/sign_up', create_patient),
     path('patients/login', patient_login),
-    path('patients/medic_info', create_medic_info),
+    path('patients/medic_info', MedicalInformationViewSet.as_view({'get': 'list', 'post': 'create'})),
     
 ]
